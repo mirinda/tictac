@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">tictac</string>
+    <string name="string">tictac</string>
+    <color name="GREY">#55111111</color>
+    <color name="BLACK">#ff000000</color>
+</resources>
