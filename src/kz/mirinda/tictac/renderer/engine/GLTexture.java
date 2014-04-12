@@ -16,6 +16,7 @@ import kz.mirinda.tictac.renderer.examples.BrushShtampExample;
  * Created by asus on 05.10.13.
  */
 public class GLTexture {
+    public static final String TAG = GLTexture.class.getSimpleName();
 
     private int mTextureId;
     private int mTextureSize;
@@ -226,7 +227,8 @@ public class GLTexture {
             i++;
         }
         int upPowerTwo = (int)Math.pow(2,i);
-
-        return upPowerTwo< Math.max(width,height)? (int)Math.pow(2,i+1):upPowerTwo;
+        int result = upPowerTwo< Math.max(width,height)? (int)Math.pow(2,i+1):upPowerTwo;
+       // Log.d(TAG,"("+width + "," + height + ") --"+ result );
+        return result;
     }
 }

@@ -8,8 +8,8 @@ import android.util.Log;
 public class BrushHelper {
 	static final int[] BRUSH_CENTER_SIZES=new int[]{5, 42, 64, 89, 96};
     static final int[] BRUSH_CURVE_SIZES=new int[]{166, 109, 69, 40, 8};
-    static final double[] SOFTNESS_SPLINE_X = new double[]{0,14,35,108,179,255};
-    static final double[] SOFTNESS_SPLINE_Y = new double[]{0,4,25,170,242,255};
+    static final double[] SOFTNESS_SPLINE_X = new double[]{0,14,35,108,179,255,280};
+    static final double[] SOFTNESS_SPLINE_Y = new double[]{0,4,25,170,242,255,280};
 	private static final String TAG = BrushHelper.class.getSimpleName();
 
     public static float getBrushCurveSize(float hardness){   	
@@ -55,6 +55,7 @@ public class BrushHelper {
         int i = 0;
         for(double x : SOFTNESS_SPLINE_X){
             softnessSplineX[i++] = solidRatio + x * blurRatio / 255.0f;
+            Log.i(TAG,i+":"+softnessSplineX[i-1]);
         }
 
         Spline cubicSpline = new Spline(softnessSplineX, SOFTNESS_SPLINE_Y);
@@ -69,6 +70,7 @@ public class BrushHelper {
         float alpha =0.0f;
         i=0;
         for(float step: gradientSteps){
+            Log.i(TAG,i+":"+cubicSpline.spline_value(step)+"; step:"+ step);
             alpha=1-(float)cubicSpline.spline_value(step)/255;
             colors[i]=color;
             alphas[i]=alpha<0?0.0f:alpha;
@@ -175,27 +177,9 @@ public class BrushHelper {
                 }
 			}
 		}
-		/*int width =512;
-		int[] bitmapColors=new int[width*width];
-		for( i=0; i<width; i++){
-			for(int j=0; j < width; j++){
-				bitmapColors[i*width+j] = Color.RED;//Color.argb(80, 100, 150, 200);
-			}
-		}*/
+		
 		Bitmap brushStamp = Bitmap.createBitmap(bitmapColors,width,width, Config.ARGB_8888);
 
-		/*int colorss[]=new int[width*width];
-		brushStamp.getPixels(colorss, 0, width, 0, 0, width, width);
-		Log.e("aikos",width+" ;");
-		int j=0;
-		for( i=0; i< colorss.length;i++){
-			if(Color.red(colorss[i])==0&&j<20){
-				Log.e("aikos",i/width+"  "+( i - i*((int)i/width)));
-				Log.e("aikos", "WTF!!!!"+Color.red(colorss[i]));
-				Log.e("aikos", "WTFx!!!!\n"+Color.red(bitmapColors[i]));
-				j++;
-			}
-		}*/
  		return brushStamp;
 		
 	}

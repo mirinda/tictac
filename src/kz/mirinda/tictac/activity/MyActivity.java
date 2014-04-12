@@ -22,6 +22,7 @@ import kz.mirinda.tictac.renderer.GLRenderer;
 import kz.mirinda.tictac.renderer.examples.BrushExample;
 import kz.mirinda.tictac.renderer.examples.BrushShtampExample;
 import kz.mirinda.tictac.renderer.examples.FxaaExample;
+import kz.mirinda.tictac.renderer.examples.ParticlesExample;
 
 public class MyActivity extends Activity implements Button.OnClickListener, View.OnTouchListener, CompoundButton.OnCheckedChangeListener {
     public static final String TAG = MyActivity.class.getSimpleName();
@@ -52,7 +53,7 @@ public class MyActivity extends Activity implements Button.OnClickListener, View
             }
         };
 
-        mRenderer =new GLRenderer(this,new BrushExample(this));
+        mRenderer =new GLRenderer(this,new ParticlesExample(this));
         mRenderer.setHandler(mHandler);
         mScrollView = (ScrollView) findViewById(R.id.scroller);
         mRenderer.getExample().setScrollView(mScrollView);
@@ -86,7 +87,19 @@ public class MyActivity extends Activity implements Button.OnClickListener, View
         }else if(mRenderer.getExample() instanceof BrushShtampExample){
             ((BrushShtampExample)mRenderer.getExample()).setFxaaEnabled(isChecked);
         }else if(mRenderer.getExample() instanceof  BrushExample){
-            ((BrushExample)mRenderer.getExample()).setColor(isChecked? Color.RED: Color.CYAN);
+            ((BrushExample)mRenderer.getExample()).setColor(isChecked? Color.argb(255,12,34,96): Color.argb(255,124,34,12));
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSurface.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSurface.onPause();
     }
 }
