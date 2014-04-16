@@ -6,6 +6,7 @@ import android.util.Log;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.security.AllPermission;
 
 import kz.mirinda.tictac.gl.GH;
 import kz.mirinda.tictac.listeners.Mover;
@@ -21,13 +22,13 @@ public class GLTexture {
     private int mTextureId;
     private int mTextureSize;
     private int mContentProgramHandle;
-    private GLPosition pos;
-    private Scene scene;
+    private GLPosition mPos;
+    private Scene mScene;
     public GLPosition getPosition(){
-        return pos;
+        return mPos;
     }
     public void setPosition(GLPosition position){
-        pos= position;
+        mPos = position;
     }
 
     public GLTexture(int width, int height, int textureContentProgram){
@@ -35,35 +36,36 @@ public class GLTexture {
         mTextureId = GH.genTexture();
         mTextureSize = getTextureSize(width,height);
         GH.texImage2D(mTextureId, mTextureSize);
-        pos = new GLPosition(width,height,mTextureSize);
-        scene = new Scene(width, height);
-        scene.setModelMatrixIdentity();
+        mPos = new GLPosition(width,height,mTextureSize);
+        mScene = new Scene(width, height);
+        mScene.setModelMatrixIdentity();
     }
 
     public void changeSize(int newWidth, int newHeight){
         mTextureSize = getTextureSize(newWidth, newHeight);
         GH.texImage2D(mTextureId,mTextureSize);
-        pos = new GLPosition(newWidth,newHeight,mTextureSize);
-        scene = new Scene(newWidth, newHeight);
-        scene.setModelMatrixIdentity();
+        mPos = new GLPosition(newWidth,newHeight,mTextureSize);
+        mScene = new Scene(newWidth, newHeight);
+        mScene.setModelMatrixIdentity();
     }
 
     public void genTextureContent(UniformSetter unif){
         GH.useProgram(mContentProgramHandle);
-        scene.setModelMatrixIdentity();
+        mScene.setModelMatrixIdentity();
         unif.setUniform(mContentProgramHandle);
-        GH.VertexAttrib(mContentProgramHandle,pos);
-        GH.uniformMatrix(mContentProgramHandle,scene);
+        GH.VertexAttrib(mContentProgramHandle, mPos);
+        GH.uniformMatrix(mContentProgramHandle, mScene);
         GH.draw();
     }
 
     public Scene getScene() {
-        return scene;
+        return mScene;
     }
 
     public static interface UniformSetter{
         public void setUniform(int programHandle);
     }
+
 
     public int getTextureId() {
         return mTextureId;

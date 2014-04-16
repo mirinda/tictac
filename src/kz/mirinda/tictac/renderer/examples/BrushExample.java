@@ -10,7 +10,6 @@ import android.widget.ScrollView;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.util.Arrays;
 import java.util.concurrent.SynchronousQueue;
 
 import kz.mirinda.tictac.R;
@@ -85,7 +84,7 @@ public class BrushExample implements Example {
 
         //Gen Brush Stamp
         GH.bindFrameBuffer(mFrameBuffer,mBrushStampTexture.getTextureId());
-        GH.viewPort(mBrushStampTexture.getScene());
+        GH.viewPort(mBrushStampTexture.getmScene());
         GH.clearColor(Color.BLACK);
         mBrushStampTexture.genTextureContent(new GLTexture.UniformSetter() {
             @Override
@@ -105,7 +104,7 @@ public class BrushExample implements Example {
         mBrushLayerTexture = new GLTexture(screenWidth,screenHeight,mDrawProgram);
 
         GH.bindFrameBuffer(mFrameBuffer,mBrushLayerTexture.getTextureId());
-        GH.viewPort(mBrushLayerTexture.getScene());
+        GH.viewPort(mBrushLayerTexture.getmScene());
         GH.clearColor(0);
         GH.bindSuperBuffer(mSuperBuffer);
 
@@ -132,17 +131,17 @@ public class BrushExample implements Example {
         final  OneTouchQueueHandler.Line l;
         if((l=mQueue.poll())!=null){
             GH.bindFrameBuffer(mFrameBuffer,mBrushLayerTexture.getTextureId());
-            GH.viewPort(mBrushLayerTexture.getScene());
+            GH.viewPort(mBrushLayerTexture.getmScene());
 
 
             //GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA,GLES20.GL_ONE_MINUS_SRC_ALPHA);
             GLES20.glBlendFuncSeparate(GLES20.GL_SRC_ALPHA,GLES20.GL_ONE_MINUS_SRC_ALPHA,GLES20.GL_ONE,GLES20.GL_ONE);
 
             GH.useProgram(mDrawProgram);
-            mBrushLayerTexture.getScene().setModelMatrixIdentity();
-            mBrushLayerTexture.getScene().translateModelMatrix(l.x1 - mScreenScene.getWidth() / 2.0f, -l.y1 + mScreenScene.getHeight() / 2.0f);
+            mBrushLayerTexture.getmScene().setModelMatrixIdentity();
+            mBrushLayerTexture.getmScene().translateModelMatrix(l.x1 - mScreenScene.getWidth() / 2.0f, -l.y1 + mScreenScene.getHeight() / 2.0f);
             GH.activeTexture0(mDrawProgram, mBrushStampTexture.getTextureId(), "u_Texture");
-            GH.uniformMatrix(mDrawProgram, mBrushLayerTexture.getScene());
+            GH.uniformMatrix(mDrawProgram, mBrushLayerTexture.getmScene());
            // GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER,mVertexBuffer);
 
             GH.VertexAttrib(mDrawProgram,mVertexBuffer, mTexturePointsBuffer);

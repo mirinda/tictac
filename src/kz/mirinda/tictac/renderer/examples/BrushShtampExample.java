@@ -222,7 +222,7 @@ public class BrushShtampExample implements Example {
         mFxaaTex = new GLTexture(container.textureSize,container.textureSize, mFxaaProgramHandle);
         mNewTex = new GLTexture(mScreenWidth,mScreenHeight,mProgramHandle);
         mNewTex.setPosition(new GLTexture.GLPosition(container.textureSize,container.textureSize,container.textureSize));//256,256,256));
-        mScrollView.setOnTouchListener(new MultiTouchListener(mNewTex.getScene(), mNewTex.getScene()));
+        mScrollView.setOnTouchListener(new MultiTouchListener(mNewTex.getmScene(), mNewTex.getmScene()));
         int texId = mFxaaTex.getTextureId();
     }
 

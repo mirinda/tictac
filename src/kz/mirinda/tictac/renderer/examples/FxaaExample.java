@@ -107,7 +107,7 @@ public class FxaaExample implements Example {
         mFxaaTex = new GLTexture(TEXTURE_SIZE,TEXTURE_SIZE, mFxaaProgramHandle);
         mNewTex = new GLTexture(mScreenWidth,mScreenHeight,mProgramHandle);
         mNewTex.setPosition(new GLTexture.GLPosition(TEXTURE_SIZE,TEXTURE_SIZE,TEXTURE_SIZE));//256,256,256));
-        mScrollView.setOnTouchListener(new MultiTouchListener(mNewTex.getScene(), mNewTex.getScene()));
+        mScrollView.setOnTouchListener(new MultiTouchListener(mNewTex.getmScene(), mNewTex.getmScene()));
     }
 
     GLTexture.Scene scene ;
@@ -117,7 +117,7 @@ public class FxaaExample implements Example {
     public void draw(){
 
         GH.bindFrameBuffer(mFrameBuffer, mSuperTex.getTextureId());
-        GH.viewPort(mSuperTex.getScene().getWidth(),mSuperTex.getScene().getHeight());
+        GH.viewPort(mSuperTex.getmScene().getWidth(),mSuperTex.getmScene().getHeight());
         // GH.clearColor(Color.CYAN);
         mSuperTex.genTextureContent(new GLTexture.UniformSetter() {
             @Override
