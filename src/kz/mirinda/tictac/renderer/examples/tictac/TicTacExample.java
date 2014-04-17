@@ -15,13 +15,25 @@ public class TicTacExample implements Example {
     public static final int N = 30;
     public static final int M = 41;
     private final Context mContext ;
+    private final Player mPlayer1;
+    private final Player mPlayer2;
+    private final Player mCurrentPlayer;
     private GLTexture.Scene mScreenScene;
     private int mFrameBuffer;
     private int mSuperBuffer;
+    private TictacBoard mBoard;
+    private STATE mState=STATE.START;
+
+    public static enum STATE{
+        START,STEP,REVERSE
+    }
+
 
     public TicTacExample(Context context, Player player1, Player player2){
         mContext = context;
-
+        mPlayer1 = player1;
+        mPlayer2 = player1;
+        mCurrentPlayer = mPlayer1;
     }
 
     @Override
@@ -34,6 +46,7 @@ public class TicTacExample implements Example {
     @Override
     public void change(int screenWidth, int screenHeight) {
         mScreenScene = new GLTexture.Scene(screenWidth,screenHeight);
+        mBoard = new TictacBoard(N,M,mContext);
     }
 
     @Override
@@ -46,6 +59,22 @@ public class TicTacExample implements Example {
         //1) уведомление о начале хода - игрок хватает какие-то нужные ему ресурсы
         //2) иметь возможность сделать ход в любое время если он начинает данный ход
         //3) уведомление о победе
+        //4) уведомление о ходе соперника
+        switch (mState){
+            case START:
+                mCurrentPlayer.move();
+                mBoard.drawAll();
+                mState = STATE.STEP;
+
+                break;
+            case STEP:
+                if(mCurrentPlayer.isMoved()){
+                   Movement move = mCurrentPlayer.getMovement();
+                }
+                break;
+        }
+
+
     }
 
     @Override
@@ -55,6 +84,11 @@ public class TicTacExample implements Example {
 
     @Override
     public void setScrollView(ScrollView scrollView) {
+
+    }
+    public static class Movement{
+        public int x;
+        public int y;
 
     }
 }

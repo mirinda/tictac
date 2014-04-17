@@ -72,7 +72,7 @@ public class GLTexture {
     }
 
     public static class GLPosition{
-        private FloatBuffer mTexPositions;
+        private  FloatBuffer mTexPositions;
         private FloatBuffer mVertexPosition;
         public GLPosition(int width, int height, int textureSize){
             calculateVertexPositions(width,height);

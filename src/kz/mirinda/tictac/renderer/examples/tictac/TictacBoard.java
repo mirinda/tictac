@@ -11,8 +11,17 @@ import kz.mirinda.tictac.renderer.engine.GLTexture;
  */
 public class TictacBoard {
     private static final int BOARD_PIXEL_SIZE=2048;
+
+    public void drawAll() {
+        for(int i=0; i < mWidth; i++){
+            for(int j=0; j < mHeight; j++){
+
+            }
+        }
+    }
+
     public static enum CELL{
-        NONE
+        NONE,X,O
     }
     private final int mWidth;
     private final int mHeight;
@@ -41,5 +50,16 @@ public class TictacBoard {
 
     public static interface CellDrawer{
         public void drawCell(int cellId);
+    }
+
+    public static class TictacDrawer implements CellDrawer{
+        public TictacDrawer(Context context){
+            //new GLTexture.GLPosition()
+
+        }
+        @Override
+        public void drawCell(int cellId) {
+
+        }
     }
 }
