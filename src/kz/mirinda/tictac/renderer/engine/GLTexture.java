@@ -119,6 +119,41 @@ public class GLTexture {
         public FloatBuffer getTextures() {
             return mTexPositions;
         }
+
+        public static FloatBuffer calculateTextureBuffer(int x, int y, int width, int height, int textureWidth,int textureHeight){
+            float fx = x*1.0f/textureWidth;
+            float fy = y*1.0f/textureHeight;
+            float fw = width*1.0f/textureWidth;
+            float fh = height*1.0f/textureHeight;
+
+            float[] buffer = new float[]{
+                    fx+fw, fy+fh,
+                    fx,fy,
+                    fx,fy+fh,
+                    fx+fw,fy+fh,
+                    fx,fy,
+                    fx+fw,fy
+            };
+            FloatBuffer textureBuffer= ByteBuffer.allocateDirect(buffer.length*BrushShtampExample.BYTES_PER_FLOAT).order(ByteOrder.nativeOrder()).asFloatBuffer();
+            textureBuffer.put(buffer);
+            textureBuffer.position(0);
+            return textureBuffer;
+        }
+        public static FloatBuffer calculateVertexBuffer(int width, int height){
+            float[] buffer = new float[]{
+                    width/2.0f, height/2.0f, 0.0f,
+                    -width/2.0f, -height/2.0f, 0.0f,
+                    -width/2.0f, height/2.0f, 0.0f,
+                    width/2.0f, height/2.0f, 0.0f,
+                    -width/2.0f, -height/2.0f, 0.0f,
+                    width/2.0f, -height/2.0f, 0.0f
+            };
+
+            FloatBuffer vertexPosition = ByteBuffer.allocateDirect(buffer.length * BrushShtampExample.BYTES_PER_FLOAT).order(ByteOrder.nativeOrder()).asFloatBuffer();
+            vertexPosition.put(buffer);
+            vertexPosition.position(0);
+            return  vertexPosition;
+        }
     }
     public static class Scene implements Mover,Scaler{
         public static final String TAG = Scene.class.getSimpleName();

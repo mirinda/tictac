@@ -23,5 +23,11 @@ public interface Player {
      *
      * lets get user move
      */
-    TicTacExample.Movement getMovement();
+    public TicTacExample.Movement getMovement();
+
+    /**
+     * уведоьляет о ходе оппонента
+     * opponents move
+     */
+    public void opponentsMove(TicTacExample.Movement move);
 }

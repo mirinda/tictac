@@ -193,13 +193,7 @@ public class /**/GH {
     }
 
     public static void VertexAttrib(int programHandle, GLTexture.GLPosition glPosition) {
-        FloatBuffer verticies = glPosition.getVertecies();
-        verticies.position(0);
-        int vertexLocation = GLES20.glGetAttribLocation(programHandle,"a_Position");
-        GLES20.glVertexAttribPointer(vertexLocation,
-                BrushShtampExample.VERTEX_POINT_DIMENSION, GLES20.GL_FLOAT,
-                false, 0, verticies);
-        GLES20.glEnableVertexAttribArray(vertexLocation);
+        vertexPosition(programHandle, glPosition.getVertecies());
 
         FloatBuffer textures = glPosition.getTextures();
         textures.position(0);
@@ -211,6 +205,14 @@ public class /**/GH {
         GLES20.glEnableVertexAttribArray(textureLocation);
     }
 
+    public static void vertexPosition(int programHandle, FloatBuffer verticies) {
+        verticies.position(0);
+        int vertexLocation = GLES20.glGetAttribLocation(programHandle, "a_Position");
+        GLES20.glVertexAttribPointer(vertexLocation,
+                BrushShtampExample.VERTEX_POINT_DIMENSION, GLES20.GL_FLOAT,
+                false, 0, verticies);
+        GLES20.glEnableVertexAttribArray(vertexLocation);
+    }
 
 
     public static void VertexAttrib(int programHandle, GLTexture.GLPosition glPosition,int vertexFrameBuffer) {
@@ -262,6 +264,14 @@ public class /**/GH {
         GLES20.glEnableVertexAttribArray(textureLocation);
     }
 
+    public static void textureVertexAttrib(FloatBuffer textures, int textureAttribHandle ){
+        textures.position(0);
+        GLES20.glVertexAttribPointer(textureAttribHandle,
+                BrushShtampExample.TEXTURE_POINT_DIMENSION, GLES20.GL_FLOAT,
+                false, 0, textures);
+        GLES20.glEnableVertexAttribArray(textureAttribHandle);
+    }
+
     public static void positionVertexAttrib(int programHandle, int positionVertexBufferIndex){
         int positionLocation = GLES20.glGetAttribLocation(programHandle,"a_Position");
         GLES20.glVertexAttribPointer(positionVertexBufferIndex,
@@ -306,6 +316,12 @@ public class /**/GH {
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D,texId);
         int texUniformHandle = GLES20.glGetUniformLocation(programHandle, textureUniformName);
+        GLES20.glUniform1i(texUniformHandle, 0);
+    }
+
+    public static void activeTexture0(int texId, int texUniformHandle) {
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D,texId);
         GLES20.glUniform1i(texUniformHandle, 0);
     }
 

@@ -46,7 +46,7 @@ public class TicTacExample implements Example {
     @Override
     public void change(int screenWidth, int screenHeight) {
         mScreenScene = new GLTexture.Scene(screenWidth,screenHeight);
-        mBoard = new TictacBoard(N,M,mContext);
+        mBoard = new TictacBoard(N,M,mContext,new TictacBoard.TictacDrawer(mContext));
     }
 
     @Override

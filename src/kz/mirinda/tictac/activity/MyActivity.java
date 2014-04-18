@@ -23,6 +23,8 @@ import kz.mirinda.tictac.renderer.examples.BrushExample;
 import kz.mirinda.tictac.renderer.examples.BrushShtampExample;
 import kz.mirinda.tictac.renderer.examples.FxaaExample;
 import kz.mirinda.tictac.renderer.examples.ParticlesExample;
+import kz.mirinda.tictac.renderer.examples.tictac.Player;
+import kz.mirinda.tictac.renderer.examples.tictac.TicTacExample;
 
 public class MyActivity extends Activity implements Button.OnClickListener, View.OnTouchListener, CompoundButton.OnCheckedChangeListener {
     public static final String TAG = MyActivity.class.getSimpleName();
@@ -52,8 +54,28 @@ public class MyActivity extends Activity implements Button.OnClickListener, View
                 imgView.invalidate();
             }
         };
+        Player player = new Player() {
+            @Override
+            public void move() {
 
-        mRenderer =new GLRenderer(this,new ParticlesExample(this));
+            }
+
+            @Override
+            public boolean isMoved() {
+                return false;
+            }
+
+            @Override
+            public TicTacExample.Movement getMovement() {
+                return null;
+            }
+
+            @Override
+            public void opponentsMove(TicTacExample.Movement move) {
+
+            }
+        };
+        mRenderer =new GLRenderer(this,new TicTacExample(this,player,player));
         mRenderer.setHandler(mHandler);
         mScrollView = (ScrollView) findViewById(R.id.scroller);
         mRenderer.getExample().setScrollView(mScrollView);
